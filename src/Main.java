@@ -2,21 +2,16 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        BoardItem item = new BoardItem("Registration doesn't work", LocalDate.now().plusDays(2));
-        item.advanceStatus();
-        BoardItem anotherItem = new BoardItem("Encrypt user data", LocalDate.now().plusDays(10));
+        BoardItem item = new BoardItem("Rewrite everything", LocalDate.now().plusDays(2));
 
-        Board board = new Board();
+// compilation error if you uncomment the next line:
+// item.title = "Rewrite everything immediately!!!";
+// we made title private so it cannot be accessed directly anymore
 
-        board.items.add(item);
-        board.items.add(anotherItem);
+        item.setTitle("Rewrite everything ASAP!!!"); // properly changing the title
+        System.out.println(item.getTitle()); // properly accessing the title
+        item.setTitle("Huh?"); // Exception thrown: Please provide a title with length between 5 and 30 chars
 
-        for (BoardItem boardItem : board.items) {
-            boardItem.advanceStatus();
-        }
 
-        for (BoardItem boardItem : board.items) {
-            System.out.println(boardItem.viewInfo());
-        }
     }
 }
