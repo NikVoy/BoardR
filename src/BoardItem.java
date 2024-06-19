@@ -93,6 +93,7 @@ public class BoardItem {
     public void advanceStatus() {
         switch (this.getStatus().name()) {
             case "Open":
+
                 this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Open, Status.Todo)));
                 this.setStatus(Status.Todo);
                 break;
