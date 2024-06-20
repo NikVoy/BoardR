@@ -72,47 +72,52 @@ public class BoardItem {
                 this.itemsHistory.add(new EventLog(CAN_T_REVERT_ALREADY_AT_OPEN));
                 break;
             case "Todo":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Todo, Status.Open)));
+                generateEventLog(Status.Todo, Status.Open);
+//                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Todo, Status.Open)));
                 this.setStatus(Status.Open);
                 break;
             case "InProgress":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.InProgress, Status.Todo)));
+                generateEventLog(Status.InProgress, Status.Todo);
                 this.setStatus(Status.Todo);
                 break;
             case "Done":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Done, Status.InProgress)));
+                generateEventLog(Status.Done, Status.InProgress);
                 this.setStatus(Status.InProgress);
                 break;
             case "Verified":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Verified, Status.Done)));
+                generateEventLog(Status.Verified, Status.Done);
                 this.setStatus(Status.Done);
                 break;
         }
     }
 
+
     public void advanceStatus() {
         switch (this.getStatus().name()) {
             case "Open":
-
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Open, Status.Todo)));
+                generateEventLog(Status.Open, Status.Todo);
                 this.setStatus(Status.Todo);
                 break;
             case "Todo":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Todo, Status.InProgress)));
+                generateEventLog(Status.Todo, Status.InProgress);
                 this.setStatus(Status.InProgress);
                 break;
             case "InProgress":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.InProgress, Status.Done)));
+                generateEventLog(Status.InProgress, Status.Done);
                 this.setStatus(Status.Done);
                 break;
             case "Done":
-                this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", Status.Done, Status.Verified)));
+                generateEventLog(Status.Done, Status.Verified);
                 this.setStatus(Status.Verified);
                 break;
             case "Verified":
                 this.itemsHistory.add(new EventLog(CAN_T_ADVANCE_ALREADY_AT_VERIFIED));
                 break;
         }
+    }
+
+    private void generateEventLog(Status first, Status second) {
+        this.itemsHistory.add(new EventLog(String.format("Status changed from %s to %s", first, second)));
     }
 
     public String viewInfo() {
