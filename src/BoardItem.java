@@ -27,6 +27,17 @@ public class BoardItem {
         logEvent(String.format("Item created: %s", viewInfo()));
     }
 
+    public BoardItem(String title, Status status, LocalDate dueDate) {
+        validateDueDate(dueDate);
+        validateTitle(title);
+
+        this.title = title;
+        this.dueDate = dueDate;
+        this.status = status;
+
+        logEvent(String.format("Item created: %s", viewInfo()));
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -89,7 +100,7 @@ public class BoardItem {
         }
     }
 
-    private void logEvent(String event) {
+    protected void logEvent(String event) {
         itemsHistory.add(new EventLog(event));
     }
 
